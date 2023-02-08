@@ -9,19 +9,43 @@
 
 std::vector<std::vector<int>> sequenceChargingCurrentReadings(std::vector<int> f_sorted_charging_current_readings)
 {
-    std::vector<std::vector<int>> sequence_charging_current_readings;
+    // std::vector<std::vector<int>> sequence_charging_current_readings;
     std::vector<int> sequence_charging_current_reading;
+    std::map<std::string, int> sequence_charging_current_readings;
+
+    bool check_endof_sequence = false;
 
     int temp = f_sorted_charging_current_readings.at(0);
-    for (int i = 0; i < f_sorted_charging_current_readings.size() - 1; i++)
+    for (int i = 0; i < (f_sorted_charging_current_readings.size() - 1); i++)
     {
 
+        sequence_charging_current_reading.push_back(f_sorted_charging_current_readings.at(i));
         if (!(abs((f_sorted_charging_current_readings.at(i + 1) - (f_sorted_charging_current_readings.at(i)))) <= 1))
         {
-            
-            temp = f_sorted_charging_current_readings.at(i);
+
+            std::string charging_range = std::to_string(sequence_charging_current_reading.front()) + "-" + sequence_charging_current_reading.back();
+            sequence_charging_current_readings[charging_range] = sequence_charging_current_reading.size();
+            sequence_charging_current_reading.clear();
+
+            if (i == (f_sorted_charging_current_readings.size() - 1))
+            {
+                check_endof_sequence = true;
+            }
+
+            // if (!(abs((f_sorted_charging_current_readings.at(i + 1) - (f_sorted_charging_current_readings.at(i)))) <= 1))
+            // {
+
+            //     temp = f_sorted_charging_current_readings.at(i);
+            // }
         }
     }
+    if (check_endof_sequence == false)
+    {
+
+        std::string charging_range = std::to_string(sequence_charging_current_reading.front()) + "-" + sequence_charging_current_reading.back();
+        sequence_charging_current_readings[charging_range] = sequence_charging_current_reading.size() + 1;
+    }
+    return sequence_charging_current_readings;
 }
 
 std::vector<int> sortChargingCurrentReadings(std::vector<int> f_charging_current_readings)
