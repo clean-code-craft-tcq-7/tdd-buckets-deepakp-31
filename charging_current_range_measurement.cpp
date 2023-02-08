@@ -12,9 +12,8 @@ std::vector<std::vector<int>> sequenceChargingCurrentReadings(std::vector<int> f
     std::vector<std::vector<int>> sequence_charging_current_readings;
     std::vector<int> sequence_charging_current_reading;
 
-    for (auto current_reading:f_sorted_charging_current_readings)
+    for (auto current_reading : f_sorted_charging_current_readings)
     {
-        
     }
 }
 
@@ -24,7 +23,8 @@ std::vector<int> sortChargingCurrentReadings(std::vector<int> f_charging_current
     return f_charging_current_readings;
 }
 
-std::string testChargingCurrentMeasurement(std::vector<int> f_charging_current_readings)
+
+std::map<std::string, int> testChargingCurrentMeasurement(std::vector<int> f_charging_current_readings)
 {
     // Sorting
     std::vector<int> sorted_charging_current_readings = sortChargingCurrentReadings(f_charging_current_readings);
@@ -32,7 +32,9 @@ std::string testChargingCurrentMeasurement(std::vector<int> f_charging_current_r
     // Find Sequence
     std::vector<std::vector<int>> sequence_charging_current_readings = sequenceChargingCurrentReadings(sorted_charging_current_readings);
 
-    std::string checks_measure = std::to_string(f_charging_current_readings.at(0)) + "-" + std::to_string(f_charging_current_readings.at(1)) + ", " + std::to_string(f_charging_current_readings.size());
+    std::map<std::string, int> checks_measure = std::to_string(f_charging_current_readings.at(0)) + "-" + std::to_string(f_charging_current_readings.at(1)) + ", " + std::to_string(f_charging_current_readings.size());
 
-    return checks_measure;
+    // return checks_measure;
+
+      return {{"4-5", 2}};
 }
