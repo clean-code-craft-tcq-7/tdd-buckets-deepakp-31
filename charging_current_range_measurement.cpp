@@ -23,7 +23,8 @@ std::map<std::string, int> sequenceChargingCurrentReadings(std::vector<int> f_so
         if (!(abs((f_sorted_charging_current_readings.at(i + 1) - (f_sorted_charging_current_readings.at(i)))) <= 1))
         {
 
-            std::string charging_range = std::to_string(sequence_charging_current_reading.front()) + "-" + std::to_string(sequence_charging_current_reading.back());
+            std::string charging_range = std::to_string(sequence_charging_current_reading.front()) 
+                                            + "-" + std::to_string(sequence_charging_current_reading.back());
             sequence_charging_current_readings[charging_range] = sequence_charging_current_reading.size();
             sequence_charging_current_reading.clear();
 
@@ -31,18 +32,13 @@ std::map<std::string, int> sequenceChargingCurrentReadings(std::vector<int> f_so
             {
                 check_endof_sequence = true;
             }
-
-            // if (!(abs((f_sorted_charging_current_readings.at(i + 1) - (f_sorted_charging_current_readings.at(i)))) <= 1))
-            // {
-
-            //     temp = f_sorted_charging_current_readings.at(i);
-            // }
         }
     }
     if (check_endof_sequence == false)
     {
 
-        std::string charging_range = std::to_string(sequence_charging_current_reading.front()) + "-" + std::to_string(f_sorted_charging_current_readings.back());
+        std::string charging_range = std::to_string(sequence_charging_current_reading.front()) 
+                                        + "-" + std::to_string(f_sorted_charging_current_readings.back());
         sequence_charging_current_readings[charging_range] = sequence_charging_current_reading.size() + 1;
     }
     return sequence_charging_current_readings;
@@ -67,12 +63,6 @@ std::map<std::string, int> testChargingCurrentMeasurement(std::vector<int> f_cha
 
     // Find Sequence
     auto sequence_charging_current_readings = sequenceChargingCurrentReadings(sorted_charging_current_readings);
-
-    // current_charging_range[std::to_string(sequence_charging_current_readings)] = charging_current_reading;
-
-    // std::map<std::string, int> checks_measure = std::to_string(f_charging_current_readings.at(0)) + "-" + std::to_string(f_charging_current_readings.at(1)) + ", " + std::to_string(f_charging_current_readings.size());
-
-    // return checks_measure;
 
     return sequence_charging_current_readings;
 }
