@@ -6,7 +6,12 @@
 #include <vector>
 #include <algorithm>
 
-std::vector<std::vector<int>> sequenceChargingCurrentReadings(std::vector<int> f_sorted_charging_current_readings);
+bool isLastCurrentMeasurement(const int& i, const int& f_size_of_current_charging_reading);
+
+std::map<std::string, int> insertCurrentChargingRange(std::vector<int>& f_current_charging_sequence,
+                                                      std::map<std::string, int>& f_current_charging_readings_sequence);
+
+std::map<std::string, int> sequenceChargingCurrentReadings(std::vector<int> f_sorted_charging_current_readings);
 
 std::vector<int> sortChargingCurrentReadings(std::vector<int> f_charging_current_readings);
 
