@@ -30,7 +30,7 @@ std::map<std::string, int> sequenceChargingCurrentReadings(std::vector<int> f_so
     current_charging_sequence.push_back(f_sorted_charging_current_readings.at(i));
     if (!(abs((f_sorted_charging_current_readings.at(i + 1) - (f_sorted_charging_current_readings.at(i)))) <= 1))
     {
-      insertCurrentChargingRange(current_charging_sequence, current_charging_readings_sequence);
+      updateCurrentChargingRange(current_charging_sequence, current_charging_readings_sequence);
 
       check_endof_sequence = isLastCurrentMeasurement(i, f_sorted_charging_current_readings.size());
     }
