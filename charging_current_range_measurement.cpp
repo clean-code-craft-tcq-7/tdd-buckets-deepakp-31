@@ -9,7 +9,7 @@ bool isLastCurrentMeasurement(const int& i, const int& f_size_of_current_chargin
   return false;
 }
 
-void insertCurrentChargingRange(std::vector<int>& f_current_charging_sequence,
+void updateCurrentChargingRange(std::vector<int>& f_current_charging_sequence,
                                 std::map<std::string, int>& f_current_charging_readings_sequence)
 {
   std::string charging_range =
