@@ -56,8 +56,6 @@ std::map<std::string, int> testChargingCurrentMeasurement(std::vector<int> f_cha
 
   std::vector<int> sorted_charging_current_readings;
 
-  int charging_current_reading;
-
   // Sorting
   sorted_charging_current_readings = sortChargingCurrentReadings(f_charging_current_readings);
 
