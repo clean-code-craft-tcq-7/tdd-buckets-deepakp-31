@@ -14,9 +14,17 @@ TEST_CASE("Test case for sequenceChargingCurrentReadings")
   sequence_charging_current_readings = { { "1-1", 1 } };
   REQUIRE(sequenceChargingCurrentReadings(sorted_charging_current_readings) == sequence_charging_current_readings);
 
-  // multiple measurements
-  sorted_charging_current_readings = { 3, 3, 5, 4, 10, 11, 12 };
-  sequence_charging_current_readings = { { "3-5", 4 }, { "10-12", 3 } };
+  // 3 measurements
+  sorted_charging_current_readings = { 4, 5, 6 };
+  sequence_charging_current_readings = { { "4-6", 3 } };
+  REQUIRE(sequenceChargingCurrentReadings(sorted_charging_current_readings) == sequence_charging_current_readings);
+
+  sorted_charging_current_readings = { 4, 4, 5 };
+  sequence_charging_current_readings = { { "4-5", 3 } };
+  REQUIRE(sequenceChargingCurrentReadings(sorted_charging_current_readings) == sequence_charging_current_readings);
+
+  sorted_charging_current_readings = { 4, 4, 4 };
+  sequence_charging_current_readings = { { "4-4", 3 } };
   REQUIRE(sequenceChargingCurrentReadings(sorted_charging_current_readings) == sequence_charging_current_readings);
 
   // unsorted multiple measurements with some single measurements
@@ -35,13 +43,18 @@ TEST_CASE("Test testChargingCurrentMeasurement")
 {
   // 2 measurements
   std::vector<int> current_charging_range = { 4, 5 };
-  std::map<std::string, int> continous_range = { { "4, 5", 2 } };
+  std::map<std::string, int> continous_range = { { "4-5", 2 } };
   REQUIRE(testChargingCurrentMeasurement(current_charging_range) == continous_range);
 
   // 1 measurements
   current_charging_range = { 8 };
-  continous_range = { { "8-8", 8 } };
-  REQUIRE(sequenceChargingCurrentReadings(current_charging_range) == continous_range);
+  continous_range = { { "8-8", 1 } };
+  REQUIRE(testChargingCurrentMeasurement(current_charging_range) == continous_range);
+
+  // 3 measurements
+  current_charging_range = { 2, 3, 4 };
+  continous_range = { { "2-4", 3 } };
+  REQUIRE(testChargingCurrentMeasurement(current_charging_range) == continous_range);
 
   // multiple measurements
   current_charging_range = { 3, 3, 5, 4, 10, 11, 12, 9, 7, 6, 5, 10, 23, 23, 22, 20 };
@@ -53,11 +66,4 @@ TEST_CASE("Test testChargingCurrentMeasurement")
   continous_range = { { "3-5", 4 }, { "10-12", 3 } };
   REQUIRE(testChargingCurrentMeasurement(current_charging_range) == continous_range);
 
-  //     REQUIRE(testChargingCurrentMeasurement(current_charging_range) == continous_range);
-  //      std::vector<int> current_charging_range = {4, 5};
-  // std::map<std::string, int> continous_range = {{"4, 5", 2}};
-
-  //     REQUIRE(testChargingCurrentMeasurement(current_charging_range) == continous_range);
-  //      std::vector<int> current_charging_range = {4, 5};
-  // std::map<std::string, int> continous_range = {{"4, 5", 2}};
 }
