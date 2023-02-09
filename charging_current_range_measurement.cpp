@@ -23,6 +23,15 @@ std::map<std::string, int> sequenceChargingCurrentReadings(std::vector<int> f_so
   std::vector<int> current_charging_sequence;
   std::map<std::string, int> current_charging_readings_sequence;
 
+  if (f_sorted_charging_current_readings.size() == 1)
+  {
+    current_charging_sequence = f_sorted_charging_current_readings;
+
+    updateCurrentChargingRange(current_charging_sequence, current_charging_readings_sequence);
+
+    return current_charging_readings_sequence;
+  }
+
   bool check_endof_sequence = false;
 
   for (int i = 0; i < static_cast<int>((f_sorted_charging_current_readings.size() - 1)); i++)
