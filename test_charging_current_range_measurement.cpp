@@ -7,7 +7,7 @@ TEST_CASE("Test case for 12-bit A2D converter")
   std::vector<int> rounded_current_reading_in_amps = {10, 0, 3};
   std::vector<int> digital_current_reading = {4094, 0, 1146};
 
-  for (int iterator = 0; iterator < digital_current_reading.size(); iterator++)
+  for (int iterator = 0; iterator < static_cast<int>(digital_current_reading.size()); iterator++)
   {
     REQUIRE(A2DConverter(rounded_current_reading_in_amps.at(iterator)) == digital_current_reading.at(iterator));
   }
@@ -18,7 +18,7 @@ TEST_CASE("Test case Validity of A2D converted Current Measurement")
   std::vector<int> digital_current_reading = {4095, 4094, 0, -1};
   std::vector<bool> validty_of_digital_current_reading = {false, true, true, false};
 
-  for (int iterator = 0; iterator < digital_current_reading.size(); iterator++)
+  for (int iterator = 0; iterator < static_cast<int>(digital_current_reading.size()); iterator++)
   {
     REQUIRE(isValidA2DConvertedCurrentMeasurement(digital_current_reading.at(iterator)) == validty_of_digital_current_reading.at(iterator));
   }
