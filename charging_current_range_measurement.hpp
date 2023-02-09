@@ -11,13 +11,21 @@
 #include <cmath>
 
 int reference_current = 10;
-int A2DConverter_bit= 12;
-int min_digital_current = 0;
-int max_digital_current = 4094;
+int A2D_12_bit_converter_bit = 12;
+int min_12_bit_digital_current = 0;
+int max_12_bit_digital_current = 4094;
+
+int max_reference_current = 15;
+int min_reference_current = -15;
+int A2D_10_bit_converter_bit = 10;
+int min_10_bit_digital_current = 0;
+int max_10_bit_digital_current = 1022;
+
+int A2D10BitConverter(int f_rounded_current_reading_in_amps);
 
 int A2DConverter(int f_rounded_current_reading_in_amps);
 
-bool isValidA2DConvertedCurrentMeasurement(int f_digital_current_reading);
+bool isValidA2DConvertedCurrentMeasurement(int &f_digital_current_reading, int &f_min_current, int &f_max_current);
 
 // Function if last element in the vector
 bool isLastCurrentMeasurement(const int &i, const int &f_size_of_current_charging_reading);

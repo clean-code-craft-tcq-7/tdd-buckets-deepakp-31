@@ -1,13 +1,18 @@
 #include "charging_current_range_measurement.hpp"
 
-int A2DConverter(int f_rounded_current_reading_in_amps)
+int A2D10BitConverter(int f_rounded_current_reading_in_amps)
 {
-    return ((std::pow(2, A2DConverter_bit) * f_rounded_current_reading_in_amps) / reference_current);
+    return ((std::pow(2, A2D_10_bit_converter_bit) * (max_reference_current + f_rounded_current_reading_in_amps)) / (max_reference_current - min_reference_current));
 }
 
-bool isValidA2DConvertedCurrentMeasurement(int f_digital_current_reading)
+int A2DConverter(int f_rounded_current_reading_in_amps)
 {
-    if ((min_digital_current <= f_digital_current_reading) && (f_digital_current_reading <= max_digital_current))
+    return ((std::pow(2, A2D_12_bit_converter_bit) * f_rounded_current_reading_in_amps) / reference_current);
+}
+
+bool isValidA2DConvertedCurrentMeasurement(int &f_digital_current_reading, int &f_min_current, int &f_max_current)
+{
+    if ((f_min_current <= f_digital_current_reading) && (f_digital_current_reading <= f_max_current))
     {
         return true;
     }
