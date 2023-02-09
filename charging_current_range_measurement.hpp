@@ -8,7 +8,7 @@
 
 bool isLastCurrentMeasurement(const int& i, const int& f_size_of_current_charging_reading);
 
-bool updateCurrentChargingRange(std::vector<int>& f_current_charging_sequence,
+void updateCurrentChargingRange(std::vector<int>& f_current_charging_sequence,
                                                       std::map<std::string, int>& f_current_charging_readings_sequence);
 
 std::map<std::string, int> sequenceChargingCurrentReadings(std::vector<int> f_sorted_charging_current_readings);
