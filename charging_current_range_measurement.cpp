@@ -18,6 +18,31 @@ void updateCurrentChargingRange(std::vector<int>& f_current_charging_sequence,
   f_current_charging_sequence.clear();
 }
 
+std::map<std::string, int> sequenceChargingCurrentMultipleReadings(
+    std::vector<int>& f_current_charging_sequence, std::map<std::string, int>& f_current_charging_readings_sequence,
+    std::vector<int>& f_sorted_charging_current_readings)
+{
+  bool check_endof_sequence = false;
+
+  for (int i = 0; i < static_cast<int>((f_sorted_charging_current_readings.size() - 1)); i++)
+  {
+    f_current_charging_sequence.push_back(f_sorted_charging_current_readings.at(i));
+    if (!(abs((f_sorted_charging_current_readings.at(i + 1) - (f_sorted_charging_current_readings.at(i)))) <= 1))
+    {
+      updateCurrentChargingRange(f_current_charging_sequence, f_current_charging_readings_sequence);
+
+      check_endof_sequence = isLastCurrentMeasurement(i, f_sorted_charging_current_readings.size());
+    }
+  }
+  if (check_endof_sequence == false)
+  {
+    std::string charging_range = std::to_string(f_current_charging_sequence.front()) + "-" +
+                                 std::to_string(f_sorted_charging_current_readings.back());
+    f_current_charging_readings_sequence[charging_range] = f_current_charging_sequence.size() + 1;
+  }
+  return f_current_charging_readings_sequence;
+}
+
 std::map<std::string, int> sequenceChargingCurrentReadings(std::vector<int> f_sorted_charging_current_readings)
 {
   std::vector<int> current_charging_sequence;
@@ -32,25 +57,8 @@ std::map<std::string, int> sequenceChargingCurrentReadings(std::vector<int> f_so
     return current_charging_readings_sequence;
   }
 
-  bool check_endof_sequence = false;
-
-  for (int i = 0; i < static_cast<int>((f_sorted_charging_current_readings.size() - 1)); i++)
-  {
-    current_charging_sequence.push_back(f_sorted_charging_current_readings.at(i));
-    if (!(abs((f_sorted_charging_current_readings.at(i + 1) - (f_sorted_charging_current_readings.at(i)))) <= 1))
-    {
-      updateCurrentChargingRange(current_charging_sequence, current_charging_readings_sequence);
-
-      check_endof_sequence = isLastCurrentMeasurement(i, f_sorted_charging_current_readings.size());
-    }
-  }
-  if (check_endof_sequence == false)
-  {
-    std::string charging_range = std::to_string(current_charging_sequence.front()) + "-" +
-                                 std::to_string(f_sorted_charging_current_readings.back());
-    current_charging_readings_sequence[charging_range] = current_charging_sequence.size() + 1;
-  }
-  return current_charging_readings_sequence;
+  return sequenceChargingCurrentMultipleReadings(current_charging_sequence, current_charging_readings_sequence,
+                                                 f_sorted_charging_current_readings);
 }
 
 std::vector<int> sortChargingCurrentReadings(std::vector<int> f_charging_current_readings)
