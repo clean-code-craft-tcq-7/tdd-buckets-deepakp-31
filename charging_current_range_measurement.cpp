@@ -9,8 +9,8 @@ bool isLastCurrentMeasurement(const int& i, const int& f_size_of_current_chargin
   return false;
 }
 
-void updateCurrentChargingRange(std::vector<int>& f_current_charging_sequence,
-                                std::map<std::string, int>& f_current_charging_readings_sequence)
+void updateCurrentChargingRangeAndReadings(std::vector<int>& f_current_charging_sequence,
+                                           std::map<std::string, int>& f_current_charging_readings_sequence)
 {
   std::string charging_range =
       std::to_string(f_current_charging_sequence.front()) + "-" + std::to_string(f_current_charging_sequence.back());
@@ -18,7 +18,7 @@ void updateCurrentChargingRange(std::vector<int>& f_current_charging_sequence,
   f_current_charging_sequence.clear();
 }
 
-std::map<std::string, int> sequenceChargingCurrentMultipleReadings(
+std::map<std::string, int> sequenceOfMultipleChargingCurrentReadings(
     std::vector<int>& f_current_charging_sequence, std::map<std::string, int>& f_current_charging_readings_sequence,
     std::vector<int>& f_sorted_charging_current_readings)
 {
@@ -29,7 +29,7 @@ std::map<std::string, int> sequenceChargingCurrentMultipleReadings(
     f_current_charging_sequence.push_back(f_sorted_charging_current_readings.at(i));
     if (!(abs((f_sorted_charging_current_readings.at(i + 1) - (f_sorted_charging_current_readings.at(i)))) <= 1))
     {
-      updateCurrentChargingRange(f_current_charging_sequence, f_current_charging_readings_sequence);
+      updateCurrentChargingRangeAndReadings(f_current_charging_sequence, f_current_charging_readings_sequence);
 
       check_endof_sequence = isLastCurrentMeasurement(i, f_sorted_charging_current_readings.size());
     }
@@ -52,13 +52,13 @@ std::map<std::string, int> sequenceChargingCurrentReadings(std::vector<int> f_so
   {
     current_charging_sequence = f_sorted_charging_current_readings;
 
-    updateCurrentChargingRange(current_charging_sequence, current_charging_readings_sequence);
+    updateCurrentChargingRangeAndReadings(current_charging_sequence, current_charging_readings_sequence);
 
     return current_charging_readings_sequence;
   }
 
-  return sequenceChargingCurrentMultipleReadings(current_charging_sequence, current_charging_readings_sequence,
-                                                 f_sorted_charging_current_readings);
+  return sequenceOfMultipleChargingCurrentReadings(current_charging_sequence, current_charging_readings_sequence,
+                                                   f_sorted_charging_current_readings);
 }
 
 std::vector<int> sortChargingCurrentReadings(std::vector<int> f_charging_current_readings)
