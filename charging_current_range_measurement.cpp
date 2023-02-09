@@ -9,8 +9,8 @@ bool isLastCurrentMeasurement(const int& i, const int& f_size_of_current_chargin
   return false;
 }
 
-std::map<std::string, int> insertCurrentChargingRange(std::vector<int>& f_current_charging_sequence,
-                                                      std::map<std::string, int>& f_current_charging_readings_sequence)
+void insertCurrentChargingRange(std::vector<int>& f_current_charging_sequence,
+                                std::map<std::string, int>& f_current_charging_readings_sequence)
 {
   std::string charging_range =
       std::to_string(f_current_charging_sequence.front()) + "-" + std::to_string(f_current_charging_sequence.back());
@@ -25,7 +25,6 @@ std::map<std::string, int> sequenceChargingCurrentReadings(std::vector<int> f_so
 
   bool check_endof_sequence = false;
 
-  int temp = f_sorted_charging_current_readings.at(0);
   for (int i = 0; i < (f_sorted_charging_current_readings.size() - 1); i++)
   {
     current_charging_sequence.push_back(f_sorted_charging_current_readings.at(i));
