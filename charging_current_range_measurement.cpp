@@ -25,7 +25,7 @@ std::map<std::string, int> sequenceChargingCurrentReadings(std::vector<int> f_so
 
   bool check_endof_sequence = false;
 
-  for (int i = 0; i < (f_sorted_charging_current_readings.size() - 1); i++)
+  for (int i = 0; i < static_cast<int>((f_sorted_charging_current_readings.size() - 1)); i++)
   {
     current_charging_sequence.push_back(f_sorted_charging_current_readings.at(i));
     if (!(abs((f_sorted_charging_current_readings.at(i + 1) - (f_sorted_charging_current_readings.at(i)))) <= 1))
