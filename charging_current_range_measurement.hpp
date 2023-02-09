@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef CHARGING_CURRENT_RANGE_MEASUREMENT
+#define CHARGING_CURRENT_RANGE_MEASUREMENT
+
 #include <iostream>
 #include <map>
 #include <stdio.h>
@@ -36,3 +39,5 @@ std::vector<int> sortChargingCurrentReadings(std::vector<int> f_charging_current
 
 // Function to test Charging Current Measurement
 std::map<std::string, int> testChargingCurrentMeasurement(std::vector<int> chargingCurrentReadings);
+
+#endif
