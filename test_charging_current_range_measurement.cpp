@@ -66,4 +66,5 @@ TEST_CASE("Test testChargingCurrentMeasurement")
   continous_range = { { "3-5", 4 }, { "10-12", 3 } };
   REQUIRE(testChargingCurrentMeasurement(current_charging_range) == continous_range);
 
+
 }
