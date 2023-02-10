@@ -1,10 +1,13 @@
 #include "charging_current_range_measurement.hpp"
 
-
-
-int A2DConverter(int& f_rounded_of_current_reading_in_amps, int& f_reference_value, int& f_A2D_converter_bit)
+float DACConverter(int& f_digital_current_reading, int& f_reference_value, int& f_A2D_converter_bit)
 {
-  return ((std::pow(2, f_A2D_converter_bit) * f_rounded_of_current_reading_in_amps) / f_reference_value);
+  return (f_reference_value * f_digital_current_reading / (std::pow(2, f_A2D_converter_bit)));
+}
+
+int A2DConverter(float& f_rounded_of_current_reading_in_amps, int& f_reference_value, int& f_A2D_converter_bit)
+{
+  return (((std::pow(2, f_A2D_converter_bit)) * f_rounded_of_current_reading_in_amps) / f_reference_value);
 }
 
 bool isValidA2DConvertedCurrentMeasurement(int& f_digital_current_reading, int& f_min_current, int& f_max_current)
@@ -15,8 +18,6 @@ bool isValidA2DConvertedCurrentMeasurement(int& f_digital_current_reading, int& 
   }
   return false;
 }
-
-
 
 bool isLastCurrentMeasurement(const int& i, const int& f_size_of_current_charging_reading)
 {
