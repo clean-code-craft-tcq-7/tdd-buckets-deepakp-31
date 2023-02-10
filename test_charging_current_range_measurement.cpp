@@ -4,18 +4,18 @@
 
 TEST_CASE("Test case for 10-bit A2D converter")
 {
-  int min_A2D_10_bit_digital_current = -15;
-  int max_A2D_10_bit_digital_current = 15;
+  float min_A2D_10_bit_digital_current = -15;
+  float max_A2D_10_bit_digital_current = 15;
   int A2D_10_bit_converter_bit = 10;
 
-  int A2D_10_bit_reference_current = max_A2D_10_bit_digital_current - min_A2D_10_bit_digital_current;
+  int A2D_10_bit_reference_current = static_cast<int>(max_A2D_10_bit_digital_current - min_A2D_10_bit_digital_current);
 
-  int total_A2D_10_bit_digital_current;
+  float total_A2D_10_bit_digital_current;
 
-  std::vector<int> rounded_current_reading_in_amps = { -15, 15, 0 };
-  std::vector<int> digital_current_reading = { 0, 1022, 511 };
+  std::vector<float> rounded_current_reading_in_amps = { -15, 15, 0 };
+  std::vector<int> digital_current_reading = { 0, 1024, 512 };
 
-  for (int iterator = 0; iterator < static_cast<int>(digital_current_reading.size()); iterator++)
+  for (int iterator = 0; iterator < (static_cast<int>(rounded_current_reading_in_amps.size())); iterator++)
   {
     total_A2D_10_bit_digital_current = max_A2D_10_bit_digital_current + rounded_current_reading_in_amps.at(iterator);
 
@@ -26,13 +26,13 @@ TEST_CASE("Test case for 10-bit A2D converter")
 
 TEST_CASE("Test case Validity of 10 bit A2D converted Current Measurement")
 {
-  int min_A2D_10_bit_digital_current = -15;
-  int max_A2D_10_bit_digital_current = 15;
+  int min_A2D_10_bit_digital_current = 0;
+  int max_A2D_10_bit_digital_current = 1024;
 
-  std::vector<int> digital_current_reading = { -1, 0, 1022, 1023, 2000 };
+  std::vector<int> digital_current_reading = { -1, 0, 1024, 1025, 2000 };
   std::vector<bool> validty_of_digital_current_reading = { false, true, true, false, false };
 
-  for (int iterator = 0; iterator < static_cast<int>(digital_current_reading.size()); iterator++)
+  for (int iterator = 0; iterator < (static_cast<int>(digital_current_reading.size())); iterator++)
   {
     REQUIRE(isValidA2DConvertedCurrentMeasurement(digital_current_reading.at(iterator), min_A2D_10_bit_digital_current,
                                                   max_A2D_10_bit_digital_current) ==
@@ -45,8 +45,8 @@ TEST_CASE("Test case for 12-bit A2D converter")
   int A2D_12_bit_reference_current = 10;
   int A2D_12_bit_converter_bit = 12;
 
-  std::vector<int> rounded_current_reading_in_amps = { 10, 0, 3 };
-  std::vector<int> digital_current_reading = { 4094, 0, 1146 };
+  std::vector<float> rounded_current_reading_in_amps = { 10, 0, 2.799 };
+  std::vector<int> digital_current_reading = { 4096, 0, 1146 };
 
   for (int iterator = 0; iterator < static_cast<int>(digital_current_reading.size()); iterator++)
   {
@@ -58,8 +58,8 @@ TEST_CASE("Test case for 12-bit A2D converter")
 TEST_CASE("Test case Validity of 12 bit A2D converted Current Measurement")
 {
   int min_A2D_12_bit_digital_current = 0;
-  int max_A2D_12_bit_digital_current = 4094;
-  std::vector<int> digital_current_reading = { 4095, 4094, 0, -1 };
+  int max_A2D_12_bit_digital_current = 4096;
+  std::vector<int> digital_current_reading = { 4097, 4096, 0, -1 };
   std::vector<bool> validty_of_digital_current_reading = { false, true, true, false };
 
   for (int iterator = 0; iterator < static_cast<int>(digital_current_reading.size()); iterator++)
