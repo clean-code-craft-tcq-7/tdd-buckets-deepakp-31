@@ -4,14 +4,18 @@
 #define CHARGING_CURRENT_RANGE_MEASUREMENT
 
 #include <iostream>
-#include <map>
 #include <stdio.h>
-#include <vector>
+
 #include <algorithm>
 #include <cmath>
+#include <map>
+#include <vector>
+
+//DAC Converter
+float DACConverter(int& f_digital_current_reading, int& f_reference_value, int& f_A2D_converter_bit);
 
 // A2D Converted
-int A2DConverter(int& f_rounded_current_reading_in_amps, int& f_reference_value, int& f_A2D_converter_bit);
+int A2DConverter(float& f_rounded_current_reading_in_amps, int& f_reference_value, int& f_A2D_converter_bit);
 
 //Checking validity of an A2D converted current measurement
 bool isValidA2DConvertedCurrentMeasurement(int& f_digital_current_reading, int& f_min_current, int& f_max_current);
